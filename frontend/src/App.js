@@ -47,7 +47,7 @@ function App() {
 
   const analyzeMalware = async () => {
     if (!file) return alert("Please upload a file first.");
-    loading(true);
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", file);
 
