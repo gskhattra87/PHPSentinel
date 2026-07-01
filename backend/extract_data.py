@@ -2,15 +2,13 @@ import os
 import zipfile
 from pathlib import Path
 
-# 1. Define the exact paths based on your VS Code screenshot
-# Assuming this script is running from inside the 'backend' folder
 ZIP_DIR = Path("dataset_raw/zip_files")
 EXTRACT_DIR = Path("dataset_raw/extracted")
 
 def setup_directories():
     """Ensures the required directories exist."""
     if not ZIP_DIR.exists():
-        print(f"❌ Error: Cannot find {ZIP_DIR}. Make sure you are running this from the 'backend' folder.")
+        print(f"Error: Cannot find {ZIP_DIR}.")
         return False
         
     EXTRACT_DIR.mkdir(parents=True, exist_ok=True)
