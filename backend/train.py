@@ -37,7 +37,7 @@ class PHPMalwareDataset(torch.utils.data.Dataset):
 def train_model():
     # Detect if you have a GPU, otherwise fallback to CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"🚀 Initializing compute on: {device}")
+    print(f" Initializing compute on: {device}")
 
     # Load Model & Tokenizer
     model_name = "microsoft/codebert-base"
@@ -50,7 +50,7 @@ def train_model():
     )
     model.to(device) # Move model to GPU/CPU
 
-    print("📂 Loading JSON data...")
+    print(" Loading JSON data...")
     train_df = pd.read_json("train.json", lines=True)
     val_df = pd.read_json("val.json", lines=True)
 
@@ -65,7 +65,7 @@ def train_model():
     optimizer = AdamW(model.parameters(), lr=2e-5)
     epochs = 5
 
-    print("\n🔥 Starting Pure PyTorch Training (Bypassing Windows Security Block)...")
+    print("\n Starting Pure PyTorch Training (Bypassing Windows Security Block)...")
 
     for epoch in range(epochs):
         print(f"\n--- Epoch {epoch + 1}/{epochs} ---")
@@ -97,11 +97,11 @@ def train_model():
                 print(f"  Step {step}/{len(train_loader)} | Current Loss: {loss.item():.4f}")
 
         avg_train_loss = total_train_loss / len(train_loader)
-        print(f"✅ Epoch {epoch + 1} Training Loss: {avg_train_loss:.4f}")
+        print(f" Epoch {epoch + 1} Training Loss: {avg_train_loss:.4f}")
 
         # --- VALIDATION PHASE ---
         model.eval()
-        print("🔍 Running Validation...")
+        print(" Running Validation...")
         all_preds = []
         all_labels = []
 
@@ -124,13 +124,13 @@ def train_model():
 
         # Calculate Macro F1 Score for this epoch
         macro_f1 = f1_score(all_labels, all_preds, average="macro", zero_division=0)
-        print(f"🎯 Epoch {epoch + 1} Validation Macro F1 Score: {macro_f1:.4f}")
+        print(f" Epoch {epoch + 1} Validation Macro F1 Score: {macro_f1:.4f}")
 
     # --- SAVE THE MODEL ---
-    print("\n💾 Saving highly-trained model...")
+    print("\n Saving highly-trained model...")
     model.save_pretrained("./saved_model")
     tokenizer.save_pretrained("./saved_model")
-    print("🎉 Training complete! Multi-Label Model saved to ./saved_model")
+    print(" Training complete! Multi-Label Model saved to ./saved_model")
 
 if __name__ == "__main__":
     train_model()
